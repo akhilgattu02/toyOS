@@ -1,0 +1,5 @@
+What is a memory?
+A: Memory is the piece of hardware used by computers to store information.
+
+What is a bootloader?
+A: Bootloader is a small computer program that loads the kernel of an operating system.
