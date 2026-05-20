@@ -3,3 +3,13 @@ A: Memory is the piece of hardware used by computers to store information.
 
 What is a bootloader?
 A: Bootloader is a small computer program that loads the kernel of an operating system.
+
+What is BIOS?
+A:
+1) Stands for Basic Input Output system.
+2) It is a kernel in itself, it initializes hardware.
+3) It looks for bootloader to boot by searching all storage mediums for the 0x55AA boot signature.
+4) It is 16 bit code. Only 16 bit code can execute it properly.
+
+Booting execution order: BIOS -> Bootloader -> kernel
+
