@@ -37,3 +37,45 @@ Segmentation Memory Model:
 Calculating Absolute Offset:
 - Take the segment register multiply it by 16 and add the offset.
 - Stack goes from high memory to low memory and heap goes from low memory to high memory. Stack grows downwards and heap grows upwards in x86.
+
+Interrupts:
+- Interrupts are like subroutines, don't need to know its memory address to invoke them.
+- Interrupts are called through the interrupt numbers.
+
+What happens when you invoke an interrupt?
+- Processor is interrupted.
+- Old state saved on stack.
+- Interrupt executed.
+
+Interrupt vector table explained
+- Table describing 256 interrupt handlers.
+- Entries contain 4 bytes (offset:segment)
+- Interrupts are in numerical order in the table.
+
+Interrupt Vector table:
+- It is organized like this:
+Offset (2 bytes) | Segment (2 bytes) | Offset | Segment | Offset | Segment | ... [256 times]
+- Each interrupt is 4 bytes.
+- Example: Interrupt 0 is at address 0x00
+- Interrupt 1 at address 0x04
+- Interrupt 2 at address 0x08
+- Interrupt 0x13 at offset 0x13 * 0x04 = 76 (Decimal), processor looks at offset 76 in RAM:
+  76-77 = Offset
+  78-79 = Segment
+
+Filesystem:
+- Filesystems are kernel implemented they are not the responsibilty of the hard disk.
+- Implementing a filesystem requires the kernel programmer to create a filesystem driver for the target filesystem.
+- Data is read and written in sectors typically 512 byte blocks.
+- Reading the sector of a disk will return 512 bytes of data for the chosen sector.
+- Earlier sectors are read and written by specifying a "head", "track" and "sector".
+- Currently, we use LBA (Logical block address) as a modern way of reading from a hard disk rather than specifying "head", "track" and "sector", we just specify a number that starts from zero.
+- LBA allows us to read from disk as if we are reading blocks from a very large file.
+- LBA 0 = first sector on the disk
+- LBA 1 = second sector on the disk
+
+Calculating LBA:
+- Reading byte 58376: LBA = 58376/512 = 114
+- Offset = 58376 % 512 = 8
+- 114 * 512 = 58368
+- 58368 + 8 = 58376
