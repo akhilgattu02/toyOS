@@ -1,10 +1,21 @@
 ; 0x0e or 0eh is the BIOS teletype output function. It outputs the character in AL to the terminal and advances the cursor.
 ; lodsb assigns character at address SI to AL and increments SI by 1.
 
-ORG 0x7c00
+ORG 0
 BITS 16
 
+jmp 0x7c0:start
+
 start:
+    cli ; Clear Interrupts
+    mov ax, 0x7c0
+    mov ds, ax
+    mov es, ax
+    mov ax, 0x00
+    mov ss, ax
+    mov sp, 0x7c00
+    sti ; Enables Interrupts 
+
     mov si, message
     call print
     jmp $

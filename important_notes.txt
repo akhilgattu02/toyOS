@@ -1,3 +1,4 @@
+BIOS:
 What is a memory?
 A: Memory is the piece of hardware used by computers to store information.
 
@@ -13,3 +14,26 @@ A:
 
 Booting execution order: BIOS -> Bootloader -> kernel
 
+Real Mode:
+- Is a compatibility mode that all modern intel processors started when they are switched on.
+- Can only excess 1 MB of RAM.
+- Based on the original x86 design.
+- No security.
+- 16 bits accessible at one time.
+- Memory access is done through segmentation memory model.
+- We can only access 8 bit and 16 bit registers.
+
+Segmentation Memory Model:
+- Memory is addressed by segment and offset.
+- Programs can be loaded in different areas of memory but run without problems.
+- Multiple segments are available through the use of segment registers.
+
+8086 Segment Registers:
+- CS: Code Segment
+- DS: Data Segment
+- ES: Extra Segment
+- SS: Stack Segment
+
+Calculating Absolute Offset:
+- Take the segment register multiply it by 16 and add the offset.
+- Stack goes from high memory to low memory and heap goes from low memory to high memory. Stack grows downwards and heap grows upwards in x86.
