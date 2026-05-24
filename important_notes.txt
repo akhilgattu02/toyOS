@@ -79,3 +79,27 @@ Calculating LBA:
 - Offset = 58376 % 512 = 8
 - 114 * 512 = 58368
 - 58368 + 8 = 58376
+
+Protected Mode:
+- Is a processor state in x86 architectures which gives access to memory protection, 4GB address space.
+- Can provide memory and hardware protection.
+- Different memory schemes.
+- 4 GB of memory directly addressable.
+
+Memory and Hardware Protection:
+- Protected Mode allows you to protect memory from being accessed.
+- Can prevent user programs talking with hardware.
+- Ring 0: Kernel (Most privileged), Ring 1 and Ring 2 (Device drivers) (lesser privileged).
+- Ring 3: Applications (Least privileged).
+
+Selector Memory Scheme:
+- Segmentation registers become selector registers.
+- Selectors point to data structures that describe memory ranges and the permissions (ring level) 
+
+Paging Memory Scheme
+- Memory is virtual and what you address can point to somewhere entirely different in memory.
+- Memory protection is easier to control.
+
+4GB of Addressable Memory
+- We gain access to 32-bit instructions and can easily work with 32-bit registers
+- We can address up to 4GB of memory and no longer limited to 1 MB of memory provided by real mode.
