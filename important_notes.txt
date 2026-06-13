@@ -103,3 +103,11 @@ Paging Memory Scheme
 4GB of Addressable Memory
 - We gain access to 32-bit instructions and can easily work with 32-bit registers
 - We can address up to 4GB of memory and no longer limited to 1 MB of memory provided by real mode.
+
+Text mode:
+- Allows you to write ascii to video memory. Ascii can be written into memory starting at address 0xB800 for coloured displays.
+- Supports 16 unique colors. Each ascii character written to this memory has its pixel equivalent outputted to the monitor.
+- No need to set individual screen pixels for printing characters.
+- Each character takes up 2 bytes:
+  1) Byte 0: Ascii character
+  2) Byte 1: Colour code

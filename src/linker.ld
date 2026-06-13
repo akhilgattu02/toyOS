@@ -3,7 +3,7 @@ OUTPUT_FORMAT(binary)
 SECTIONS
 {
 	. = 1M;
-    .text :
+    .text : ALIGN(4096)
     {
         *(.text)
     }
@@ -11,12 +11,12 @@ SECTIONS
     /*
         Read only data
     */
-    .rodata :
+    .rodata : ALIGN(4096)
     {
         *(.rodata)
     }
 
-    .data   :
+    .data   : ALIGN(4096)
     {
         *(.data)
     }
@@ -24,9 +24,14 @@ SECTIONS
     /*
         Block Started by Symbol (BSS). Used to hold uninitialized global and static variables. 
     */
-    .bss    :
+    .bss    : ALIGN(4096)
     {
         *(COMMON)
         *(.bss)
+    }
+
+    .asm    :
+    {
+        *(.asm)
     }
 }
