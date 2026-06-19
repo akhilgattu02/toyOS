@@ -1,6 +1,8 @@
 #include "kernel.h"
 #include <stdint.h>
 #include <stddef.h>
+#include "idt/idt.h"
+#include "io/io.h"
 
 uint16_t* video_mem = 0;
 uint16_t terminal_row = 0;
@@ -69,6 +71,8 @@ void print(char* str)
     }
 }
 
+extern void problem();
+
 void kernel_main()
 {
     terminal_initialize();
@@ -76,4 +80,7 @@ void kernel_main()
     print(str);
     terminal_row = 0;
     terminal_col = 0;
+    idt_init();
+
+    outb(0x60, 0xff);
 }

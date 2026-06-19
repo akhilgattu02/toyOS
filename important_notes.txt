@@ -111,3 +111,45 @@ Text mode:
 - Each character takes up 2 bytes:
   1) Byte 0: Ascii character
   2) Byte 1: Colour code
+
+Interrupt Descriptor Table:
+- Describes how interrupts are invoked in protected mode.
+- Can be mapped anywhere in memory.
+- Different from interrupt vector table.
+- Contains the following things:
+  1) Offset (Bit 46-63) - Higher part pf the offset to execute
+  2) P (Bit 47) - Should be set to xero for unused interrupts
+  3) DPL (Bit 45-46, Descriptor Privilege Level) - The ring level the processor requires to call this interrupt   
+  4) S (Bit 44, Storage Segment) - Should be set to zero for trap gates  
+  5) Type (Bit 40-43, Gate Type) - The type of gate this interrupt is treated as  
+  6) 0 (Bit 32-39, Ununsed 0-7) - Ununsed bits in this structure
+  7) Selector (Bit 16-31, Selector 0-15) - The selector this interrupt is bounded to, the kernel code selector. 
+  8) Offset (Bit 0-15, Offset 0-15) - The lower part of the offset to execute.
+
+Print function semantics:
+- void print -> terminal_writechar -> terminal_putchar -> terminal_makechar
+
+Programmable interrupt controller (PIC):
+- Allows hardware to interrupt the processor state.
+- Programmable
+- Requires interrupt acknowledgement.
+- Allows different types of hardware to interrupt the processor such as hard disk, keyboard and more.
+- Standard ISA (Instruction set architecture) IRQ's (Interrupt request):
+  IRQ | Description
+  0   | Timer Interrupt
+  1   | Keyboard Interrupt
+  2   | Cascade (used internally by the two PICs. never raised)
+  3   | COM2 (if enabled)
+  4   | COM1 (if enabled)
+  5   | LPT2 (if enabled)
+  6   | Floppy disk
+  7   | LPT1
+  8   | CMOS real time clock (if enabled)
+  9   | Free for peripherals / legacy SCSI / NIC
+  10  | Free for peripherals / SCSI / NIC 
+  11  | Free for peripherals / SCSI / NIC 
+  12  | PS2 Mouse
+  13  | FPU / Coprocessor / Inter-processor
+  14  | Primary ATA Hard Disk
+  15  | Secondary ATA Hard Disk
+  
