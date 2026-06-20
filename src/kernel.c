@@ -81,6 +81,4 @@ void kernel_main()
     terminal_row = 0;
     terminal_col = 0;
     idt_init();
-
-    outb(0x60, 0xff);
 }

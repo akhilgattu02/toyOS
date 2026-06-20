@@ -153,3 +153,20 @@ Programmable interrupt controller (PIC):
   14  | Primary ATA Hard Disk
   15  | Secondary ATA Hard Disk
   
+Understanding IRQ'S:
+- IRQ's are mapped to a starting interrupt for example 0x20.
+- IRQ 0 would be interrupt 0x20
+- IRQ 1 would be interrupt 0x21
+- IRQ 2 would be interrupt 0x22
+
+Master vs Slave:
+- The system has 2 PIC (programmable Interrupt Controller) one for master ports and other for slave ports.
+- Master handles IRQ 0-7.
+- Slave handles IRQ 8-15.
+
+PIC Control Ports:
+- 0x20 and 0x21: Master IRQ'S
+- 0xA0 and 0xA1: Slave IRQ's
+
+Interrupt Acknowledgement:
+- You must let PIC controller know when you handled the interrupt.
