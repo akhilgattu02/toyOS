@@ -3,6 +3,7 @@
 #include <stddef.h>
 #include "idt/idt.h"
 #include "io/io.h"
+#include "memory/heap/kheap.h"
 
 uint16_t* video_mem = 0;
 uint16_t terminal_row = 0;
@@ -76,9 +77,15 @@ extern void problem();
 void kernel_main()
 {
     terminal_initialize();
-    char* str = "Big string print!\nThis is a new line!";
+    char* str = "Hello!\nThis is a new line!";
     print(str);
     terminal_row = 0;
     terminal_col = 0;
+
+
+    // Initialize the heap
+    kheap_init();
+
+    // Initialize the interrupt descriptor table (IDT)
     idt_init();
 }
