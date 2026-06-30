@@ -272,8 +272,63 @@ Diadvantages of our implementation:
 - We allocate in memory blocks meaning misaligned sizes requested from our heap will result in wasted lost bytes.
 - Memory fragmentation is possible.
 
+Paging:
+- Allows us to remap memory addresses to point to other memory addresses.
+- Can be used to provide the illusion we have the maximum amount of RAM installed.
+- Can be used to hide memory from other processes.
 
+Remapping memory:
+- Paging allows us to remap one memory address to another, so 0x100000 could point to 0x200000.
+- Paging works in 4096 byte block sizes by default. The blocks are called pages.
+- When paging is enabled the MMU (Memory Management Unit) will look at your allocated page tables to resolve
+virtual addresses into physical addresses.
+- Paging allows us to pretend memory exists when it does not.
 
+Virtual addresses vs Physical addresses:
+- Are addresses that are not pointing to the address in memory that their value says they are. Virtual address 0x100000 might point to physical address 0x200000.
+- Physical addresses are absolute addresses in memory whose value points to the same address in memory.
+- Essentially virtual address and physical address are just terms we used to explain how a piece of memory is being accessed.
+
+Structure Overview:
+- 1024 page directories that point to 1024 page tables.
+- 1024 page table entries per page table.
+- Each page table entry covers 4096 bytes of memory.
+- Each "4096" byte block of memory is called a page.
+- 1024 * 1024 * 4096 = 4GB of addressable memory.
+
+Page Directory Structure:
+- Holds a pointer to a page table.
+- Holds attributes.
+- P: The bit is set if the page exists in real memory. If this page is not actually available, then this bit should be set to zero. If someone accesses this memory, a "Page fault" will occur.
+- R: If this bit is set the page is readable and writable if its not set then this page is only readable.
+- U (User Supervisor Bit): If set then this page can be accessed by all privilege ring levels. If not then only supervisor ring levels can access this page.
+- W: If set, then write through caching is enabled, if not, then write back is enabled instead.
+- D: Cache disable bit. Set to 1 to disable page caching.
+- A: Set to 1 by the CPU if this page is accessed.
+- S: Set to 0 for 4KB pages, set to 1 for 4 MB pages.
+- Page table 4-KB Aligned Address: Physical 4096 byte aligned address to the start of a page table.
+
+Page Fault Exception:
+- The CPU will call page fault interrupt 0x14 where there was a problem with paging.
+The exception is invoked:
+- If you access a page in memory that does not have its "P (Present)" bit set.
+- Invoked if you access a page that is for supervisor but you are not supervisor.
+- Invoked if you write to a page that is read only and you are not supervisor.
+
+Hiding memory from processes:
+- If we give each process its own page directoy table then we can map the memory for the process however we want it to be. We can make it so the process can only see itself.
+- Hiding memory can be achieved by switching the page directories when moving between processes.
+- All processes can access the same virtual memory addresses but they will point to different physical addresses.
+
+Illusion of more memory:
+- We can pretend we have the maximum amount of memory even if we do not.
+- This is achieved by creating page tables that are not present. Once a process accesses this non-present address a page fault will occur. We can then load the page back into memory and the process had no idea.
+- 100 MB system can act as if it has access to full 4GB on a 32 bit architecture.
+
+Benefits to paging:
+- Each process can access the same virtual memory addresses, never writing over each other.
+- Security is an added benefit as we can map out physical memory that we don't processes to see.
+- Can be used to prevent overwriting of sensitive data such as program code.
 
 
 
