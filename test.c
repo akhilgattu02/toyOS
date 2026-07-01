@@ -2,13 +2,13 @@
 #include <stdlib.h>
 struct table
 {
-    int total;
     int *entries;
+    int total;
 };
 
 struct heap_table
 {
-    struct table* table;
+    struct table* table[150];
 };
 
 int main()
@@ -23,13 +23,12 @@ int main()
     }
     printf("%d\n", *(entries));
     mytable.entries = entries;
-    printf("Total: %d\n", mytable.total);
+    //printf("Total: %d\n", mytable.total);
     struct heap_table myheap;
-    myheap.table = &mytable;
-    for(int i = 0; i < mytable.total; i++)
+    for(int i = 0; i < 150; i++)
     {
-        printf("Entry %d: %d\n", i, mytable.entries[i]);
+        myheap.table[i] = &mytable;
     }
-    printf("%d", myheap.table->entries[0]);
+    printf("%ld", sizeof(mytable));
 
 }

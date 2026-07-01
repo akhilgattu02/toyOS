@@ -330,5 +330,18 @@ Benefits to paging:
 - Security is an added benefit as we can map out physical memory that we don't processes to see.
 - Can be used to prevent overwriting of sensitive data such as program code.
 
+Preparing to read from hard disk:
+What is a PCI IDE controller?
+- IDE refers to electrical specification of cables which connect ATA drives to another device.
+- IDE allows upto 4 drives to be connected.
+1. ATA (Serial): Used for modern hard drives
+2. ATA (Parallel): Used for hard drives
+3. ATAPI (Serial): Used for modern optical drives.
+4. ATAPI (Parallel): Commonly used for optical drives.
 
+Possible Drive types:
+- Primary master drive
+- Primary slave drive
+- Secondary master drive
+- Secondary slave drive
 
